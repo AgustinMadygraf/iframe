@@ -1,4 +1,4 @@
-import IframeEmbedder from '../components/IframeEmbedder.js';
+import IframeCreator from '../components/IframeCreator.js';
 import Logger from '../utils/logger.js';
 import config from '../config/config.js';
 
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sandboxAttributes: config.sandboxAttributes || 'allow-same-origin allow-scripts',
         title: config.iframeTitle || 'Contenido incrustado',
     };
-    const iframeEmbedder = new IframeEmbedder(iframeOptions, logger);
+    const iframeCreator = new IframeCreator(iframeOptions, logger);
 
-    iframeEmbedder.createIframe();
+    iframeCreator.createIframe();
 });

@@ -1,6 +1,6 @@
-import { validateURL, validateDimension } from '../utils/validators.js';
+import IframeValidator from './IframeValidator.js';
 
-export default class IframeEmbedder {
+export default class IframeCreator {
     constructor(options, logger) {
         this.containerId = options.containerId;
         this.url = options.url;
@@ -10,27 +10,8 @@ export default class IframeEmbedder {
         this.title = options.title || 'Contenido incrustado';
         this.logger = logger;
 
-        this.validateParameters();
-    }
-
-    validateParameters() {
-        try {
-            if (!validateURL(this.url)) {
-                throw new Error(`La URL proporcionada no es válida: ${this.url}`);
-            }
-            if (!validateDimension(this.width)) {
-                throw new Error(`El ancho proporcionado no es válido: ${this.width}`);
-            }
-            if (!validateDimension(this.height)) {
-                throw new Error(`La altura proporcionada no es válida: ${this.height}`);
-            }
-            if (!this.containerId) {
-                throw new Error('El ID del contenedor es obligatorio.');
-            }
-        } catch (error) {
-            this.logger.error(`Error en la validación de parámetros: ${error.message}`);
-            throw error;
-        }
+        // Validar los parámetros antes de proceder
+        IframeValidator.validateParameters(options, this.logger);
     }
 
     createIframe() {
