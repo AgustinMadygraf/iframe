@@ -1,0 +1,15 @@
+{
+    "name": "iframe-embedder",
+    "version": "1.0.0",
+    "description": "Proyecto para incrustar un iframe con JavaScript",
+    "main": "index.js",
+    "scripts": {
+      "test": "jest"
+    },
+    "author": "Tu Nombre",
+    "license": "MIT",
+    "devDependencies": {
+      "jest": "^27.0.0"
+    }
+  }
+  
