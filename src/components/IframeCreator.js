@@ -68,31 +68,38 @@ export default class IframeCreator {
             if (!container) {
                 throw new Error(`El contenedor con ID "${this._containerId}" no fue encontrado.`);
             }
-
-            const iframe = document.createElement('iframe');
-            iframe.src = this.getUrl();
+    
+            let iframeUrl = this.getUrl();
+    
+            // Verificar si la URL comienza con 'http://' y corregir a 'https://'
+            if (iframeUrl.startsWith('http://')) {
+                this.logger.warn(`La URL ${iframeUrl} está usando HTTP. Se convertirá automáticamente a HTTPS.`);
+                iframeUrl = iframeUrl.replace('http://', 'https://');
+            }
+    
+            iframe.src = iframeUrl;
             iframe.width = this.getWidth();
             iframe.height = this.getHeight();
             iframe.setAttribute('frameBorder', '0');
-
+    
             // Asegurarse de incluir el permiso 'allow-forms' en el sandbox
             iframe.setAttribute('sandbox', `${this.sandboxAttributes} allow-forms`);
-
+    
             iframe.setAttribute('title', this.title);
             iframe.classList.add('embedded-iframe');
-
+    
             iframe.onload = () => {
-                this.logger.info(`Iframe cargado correctamente con URL: ${this.getUrl()}`);
+                this.logger.info(`Iframe cargado correctamente con URL: ${iframeUrl}`);
             };
-
+    
             iframe.onerror = (error) => {
                 this.logger.error(`Error al cargar el iframe: ${error.message}`);
             };
-
+    
             container.appendChild(iframe);
             this.logger.info('Iframe insertado correctamente en el DOM.');
         } catch (error) {
             this.logger.error(`Error al crear el iframe: ${error.message}`);
         }
-    }
+    }      
 }
