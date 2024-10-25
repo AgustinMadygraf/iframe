@@ -14,14 +14,22 @@ export default class IframeEmbedder {
     }
 
     validateParameters() {
-        if (!validateURL(this.url)) {
-            throw new Error(`La URL proporcionada no es válida: ${this.url}`);
-        }
-        if (!validateDimension(this.width)) {
-            throw new Error(`El ancho proporcionado no es válido: ${this.width}`);
-        }
-        if (!validateDimension(this.height)) {
-            throw new Error(`La altura proporcionada no es válida: ${this.height}`);
+        try {
+            if (!validateURL(this.url)) {
+                throw new Error(`La URL proporcionada no es válida: ${this.url}`);
+            }
+            if (!validateDimension(this.width)) {
+                throw new Error(`El ancho proporcionado no es válido: ${this.width}`);
+            }
+            if (!validateDimension(this.height)) {
+                throw new Error(`La altura proporcionada no es válida: ${this.height}`);
+            }
+            if (!this.containerId) {
+                throw new Error('El ID del contenedor es obligatorio.');
+            }
+        } catch (error) {
+            this.logger.error(`Error en la validación de parámetros: ${error.message}`);
+            throw error;
         }
     }
 
@@ -42,11 +50,18 @@ export default class IframeEmbedder {
             iframe.setAttribute('title', this.title);
             iframe.classList.add('embedded-iframe');
 
-            this.logger.info(`Iframe creado con URL: ${this.url}`);
+            iframe.onload = () => {
+                this.logger.info(`Iframe cargado correctamente con URL: ${this.url}`);
+            };
+
+            iframe.onerror = (error) => {
+                this.logger.error(`Error al cargar el iframe: ${error.message}`);
+            };
+
             container.appendChild(iframe);
             this.logger.info('Iframe insertado correctamente en el DOM.');
         } catch (error) {
-            this.logger.error('Error al crear el iframe:', error.message);
+            this.logger.error(`Error al crear el iframe: ${error.message}`);
         }
     }
 }
