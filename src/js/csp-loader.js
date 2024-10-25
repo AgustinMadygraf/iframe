@@ -10,7 +10,14 @@
         if (!response.ok) {
             throw new Error(`Error al cargar url.txt: ${response.statusText}`);
         }
+
         const iframeUrl = (await response.text()).trim();
+
+        // Verificar si la URL comienza con http:// en lugar de https://
+        if (iframeUrl.startsWith('http://')) {
+            console.error(`La URL proporcionada en url.txt está mal escrita: ${iframeUrl}. Debe comenzar con https://`);
+            return; // Detener ejecución para evitar errores
+        }
 
         // Crear el meta tag con la política de seguridad de contenido (CSP)
         const metaTag = document.createElement('meta');

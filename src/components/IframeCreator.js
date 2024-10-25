@@ -1,3 +1,5 @@
+// iframe/src/components/IframeCreator.js
+
 import { validateURL, validateDimension } from '../utils/validators.js';
 
 export default class IframeCreator {
