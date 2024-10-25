@@ -4,12 +4,15 @@
     "description": "Proyecto para incrustar un iframe con JavaScript",
     "main": "index.js",
     "scripts": {
-      "test": "jest"
+        "test": "jest"
     },
-    "author": "Tu Nombre",
+    "author": "AgustinMadygraf",
     "license": "MIT",
     "devDependencies": {
-      "jest": "^27.0.0"
-    }
-  }
-  
+        "jest": "^27.5.1"
+    },
+    "directories": {
+        "test": "tests"
+    },
+    "keywords": []
+}
