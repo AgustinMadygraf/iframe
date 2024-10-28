@@ -77,6 +77,8 @@ export default class IframeCreator {
                 iframeUrl = iframeUrl.replace('http://', 'https://');
             }
     
+            // Crear el elemento iframe
+            const iframe = document.createElement('iframe'); // <-- Asegúrate de crear el elemento aquí
             iframe.src = iframeUrl;
             iframe.width = this.getWidth();
             iframe.height = this.getHeight();
@@ -101,5 +103,5 @@ export default class IframeCreator {
         } catch (error) {
             this.logger.error(`Error al crear el iframe: ${error.message}`);
         }
-    }      
+    }
 }

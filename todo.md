@@ -1,106 +1,45 @@
-# To-Do List - Proyecto Desarrollo Web (Node.js)
+# To Do List: Implementación de Vue.js en Proyecto de Iframe
 
-Este archivo contiene la lista de tareas pendientes organizadas por prioridad y áreas de desarrollo. 
+1. **Configurar Proyecto con Vue CLI**
+   - [ ] Instalar Vue CLI si aún no está instalado: `npm install -g @vue/cli`
+   - [ ] Crear un nuevo proyecto Vue en la carpeta `iframe`: `vue create iframe-vue`
+   - [ ] Configurar el proyecto para trabajar con Vue Router y Vuex (opcional, si se requiere gestión de estado)
 
----
+2. **Estructurar Archivos y Configuración**
+   - [ ] Organizar la estructura de carpetas: mover los archivos existentes de `src` a `iframe-vue/src`, manteniendo componentes y utilidades.
+   - [ ] Configurar rutas y vistas en Vue Router si es necesario, para que el proyecto esté modularizado.
 
-## Tareas Prioritarias:
+3. **Crear Componente `IframeCreator.vue`**
+   - [ ] Migrar el código de `IframeCreator.js` a un componente Vue (`IframeCreator.vue`), incluyendo las propiedades y métodos necesarios.
+   - [ ] Definir las propiedades del componente (`props`) para recibir los parámetros necesarios como `url`, `width`, `height`, etc.
+   - [ ] Usar la directiva `v-if` y `v-bind` para manejar la lógica de visualización y vinculación de atributos.
 
-### 1. Implementar funcionalidades principales:
-- [ ] **Funcionalidad de incrustación de iframe:**
-  - Implementar correctamente la funcionalidad de incrustar contenido en el iframe.
-  - Validar las URLs permitidas para evitar errores de Content Security Policy.
-  - Probar la funcionalidad en múltiples navegadores (Chrome, Firefox, Edge).
-  - Asegurar que el iframe se inserta y se gestiona correctamente en el DOM.
+4. **Crear Componente `Logger.vue` o Servicio de Logging**
+   - [ ] Implementar el sistema de logging en un componente o servicio Vue que pueda ser reutilizado y configurado globalmente.
+   - [ ] Definir métodos como `error`, `warn`, `info`, y `debug` dentro de este componente o servicio.
 
-### 2. Configurar pruebas unitarias y de integración:
-- [ ] **Configurar Jest para pruebas unitarias:**
-  - Instalar Jest si aún no está instalado: `npm install --save-dev jest`.
-  - Crear un directorio `/tests` y añadir pruebas para los módulos principales.
-  - Implementar pruebas para la clase `IframeEmbedder` (verificar métodos como crear, insertar y validar iframes).
-  - Asegurar que todas las pruebas se ejecuten correctamente con el comando `npm test`.
+5. **Configurar `getIframeURL` como Servicio**
+   - [ ] Convertir `getIframeURL` en un servicio que se pueda importar y utilizar en los componentes Vue.
+   - [ ] Manejar la llamada `fetch` en este servicio y devolver la URL, utilizando `async/await` dentro de los componentes que lo necesiten.
 
-- [ ] **Pruebas de integración:**
-  - Crear un entorno de pruebas para verificar que todas las dependencias y módulos funcionan de manera integrada.
-  - Probar la integración del frontend (HTML/CSS/JS) con el backend (Node.js).
-  - Verificar que los componentes se comunican correctamente (por ejemplo, que el iframe carga y gestiona la comunicación).
+6. **Migrar la Lógica de Inicialización a `App.vue`**
+   - [ ] En `App.vue`, usar el método `mounted` o `created` para manejar la inicialización de los componentes.
+   - [ ] Llamar a `getIframeURL` en el ciclo de vida del componente para obtener la URL y pasarla a `IframeCreator`.
 
-### 3. Refactorización y mejoras de código:
-- [ ] **Revisar y mejorar la modularización del código:**
-  - Revisar si los módulos existentes pueden ser más reutilizables o más limpios.
-  - Dividir funciones complejas en funciones más pequeñas y manejables.
-  - Eliminar código muerto o no utilizado.
+7. **Añadir CSS y Estilos en los Componentes Vue**
+   - [ ] Migrar los estilos CSS existentes al nuevo proyecto y dividirlos en los componentes Vue correspondientes.
+   - [ ] Utilizar el sistema de Scoped CSS en Vue para aislar los estilos de cada componente.
 
-- [ ] **Optimizar el rendimiento del sitio web:**
-  - Minimizar los tiempos de carga optimizando el uso de JavaScript y CSS.
-  - Verificar la carga eficiente de recursos estáticos (imágenes, estilos, scripts).
+8. **Configurar la Política de Seguridad de Contenido (CSP)**
+   - [ ] Agregar la lógica de CSP como un servicio o en `App.vue` para aplicarla dinámicamente en función de la URL del iframe.
+   - [ ] Insertar el `meta` tag de CSP en el `head` del documento usando Vue en el montaje de `App.vue`.
 
----
+9. **Crear y Configurar Componentes de Validación (`Validators.js`)**
+   - [ ] Migrar `validateURL` y `validateDimension` a un módulo de validación en Vue o en un servicio.
+   - [ ] Importar y usar estos validadores en `IframeCreator.vue` para verificar las propiedades de entrada.
 
-## Tareas Pendientes:
-
-### 1. Documentación:
-- [ ] **Actualizar `README.md`:**
-  - Agregar instrucciones detalladas sobre cómo clonar y ejecutar el proyecto localmente.
-  - Incluir pasos para configurar el entorno de desarrollo.
-  - Documentar las principales dependencias y cómo instalar nuevas dependencias con `npm install`.
-
-- [ ] **Crear documentación técnica:**
-  - Documentar el propósito de los módulos principales (`IframeEmbedder.js`, `app.js`, etc.).
-  - Incluir ejemplos de cómo utilizar las principales funciones del proyecto.
-  - Añadir una breve explicación sobre la estructura del proyecto y su propósito.
-
-### 2. Configuración de entorno:
-- [ ] **Configurar ESLint y Prettier:**
-  - Instalar ESLint: `npm install eslint --save-dev`.
-  - Crear un archivo `.eslintrc` para definir las reglas de estilo.
-  - Instalar Prettier para formateo automático: `npm install prettier --save-dev`.
-  - Configurar scripts en `package.json` para ejecutar ESLint y Prettier con `npm run lint`.
-
-- [ ] **Asegurar que las variables de entorno estén bien configuradas:**
-  - Crear un archivo `.env` para almacenar variables sensibles (ejemplo: API keys, URLs externas).
-  - Verificar que el archivo `.gitignore` incluya `.env` para evitar su inclusión en el repositorio.
-
----
-
-## Mejoras Futuras:
-
-- [ ] **Añadir autenticación de usuarios:**
-  - Investigar la implementación de un sistema de autenticación (JWT o OAuth2).
-  - Añadir protección de rutas específicas según los permisos de los usuarios.
-
-- [ ] **Implementar CI/CD (Integración y Despliegue Continuos):**
-  - Configurar un pipeline de integración continua con GitHub Actions o TravisCI.
-  - Asegurar que el pipeline ejecute pruebas unitarias y de integración antes de cualquier despliegue.
-
-- [ ] **Optimizar la seguridad del proyecto:**
-  - Investigar sobre buenas prácticas de seguridad en Node.js.
-  - Implementar mecanismos de prevención de ataques comunes (inyecciones SQL, XSS, CSRF).
-
-- [ ] **Soporte para internacionalización (i18n):**
-  - Añadir soporte multilenguaje (inicialmente español e inglés).
-  - Utilizar una biblioteca como `i18next` para gestionar las traducciones.
-
----
-
-## Opcional: Sugerencias de Flujo de Trabajo
-
-### Control de versiones y ramas:
-- [ ] **Adoptar un flujo de trabajo basado en ramas (Git Flow):**
-  - Crear ramas específicas para cada nueva característica (`feature/`), corrección de errores (`fix/`), y mejoras (`enhancement/`).
-  - Usar la rama principal (`main`) para versiones estables y asegurarse de hacer pruebas antes de fusionar cualquier cambio.
-
-### Organización del trabajo:
-- [ ] **Dividir el trabajo en hitos:**
-  - Crear pequeños hitos para cada parte importante del proyecto (por ejemplo, "Implementación de iFrame", "Configuración de Pruebas", "Documentación").
-
----
-
-## Notas adicionales:
-
-### Dependencias:
-- Verificar que todas las dependencias de Node.js estén actualizadas ejecutando `npm outdated`.
-- Si es necesario, actualiza las dependencias importantes utilizando `npm update <package>`.
-
----
+10. **Probar e Integrar el Proyecto**
+   - [ ] Realizar pruebas locales del proyecto para asegurar que el iframe se carga correctamente y que el logging y la configuración funcionan como esperado.
+   - [ ] Configurar scripts de `npm` para desarrollo y despliegue (`npm run serve`, `npm run build`).
+   - [ ] Realizar pruebas en distintos navegadores y ajustar las configuraciones de CSP y CORS si es necesario.
 
